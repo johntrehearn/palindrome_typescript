@@ -47,7 +47,10 @@ form.addEventListener('submit', (event) => {
           mess = 'No palindrome this time - Please play again';
         }
       }
-      document.querySelector('#result').innerHTML = mess;
+      const resultElement = document.querySelector('#result');
+      if (resultElement !== null) {
+        resultElement.innerHTML = mess;
+      }
     }
   }
 
