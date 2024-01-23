@@ -1,24 +1,56 @@
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+
+
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
+  <h1>JT Palindrome Checker</h1>
+  <h3>Please enter the word to check:</h3>
+  <form id="palindrome_check">
+   
+   <input type="text" id="word" />
+
+   <button type="submit">Submit</button>
+   
+   </form>
+   <h1><span id="result"><span></h1>
 `
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+let mess: string = '';
+
+const form = document.querySelector('#palindrome_check') as HTMLFormElement;
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  const isInputed = document.querySelector('#word') as HTMLInputElement;
+  const isPalindrome = isInputed.value;
+
+  console.log(`Word to be checked is: ${isPalindrome}`);
+
+  function Palindrome(isPalindrome: string) {
+    let reverseWord = '';
+    let word = String(isPalindrome).toUpperCase();
+
+    for (let i = word.length - 1; i >= 0; i--) {
+      console.log(i);
+      reverseWord += word[i];
+      console.log('word is reversed ', reverseWord);
+    }
+
+    for (let j = word.length - 1; j >= 0; j--) {
+      if (word === '') {
+        return;
+      } else {
+        if (word[j] === reverseWord[j]) {
+          mess = 'You found a palindrome - Congratulations';
+        } else {
+          mess = 'No palindrome this time - Please play again';
+        }
+      }
+      document.querySelector('#result').innerHTML = mess;
+    }
+  }
+
+  Palindrome(isPalindrome)
+});
+
